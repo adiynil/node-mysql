@@ -1,4 +1,4 @@
-const db = require('./db')
+const db = require('../db/db')
 
 // sql string
 const [DEFAULT_PASSWORD, DEFAULT_GENDER] = ['12345', 1]
