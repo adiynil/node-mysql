@@ -2,7 +2,7 @@ const db = require('../db/db')
 
 // sql string
 const [DEFAULT_PASSWORD, DEFAULT_GENDER] = ['12345', 1]
-const SQL_INSERT_SINGLE = `insert into user(name,password,gender) values(?,?,?)`
+const SQL_INSERT_SINGLE = `insert into user(names,password,gender) values(?,?,?)`
 const SQL_INSERT_MULTI = `insert into user(name,password,gender) values ?`
 const SQL_DELETE_FORCE = `delete from user where uid in (?)`
 const SQL_DELETE_SOFT = `update user set status=0 where uid in (?)`
@@ -53,6 +53,7 @@ const insertOne = async function(_user) {
     let gender = _user.gender || DEFAULT_GENDER
     let val = [name, password, gender]
     db.query(SQL_INSERT_SINGLE, val, (err, res) => {
+      // console.log(err)
       if (err) resolve(MESSAGE.SQL_ERROR(err.sqlMessage))
       resolve(MESSAGE.OK(res.affectedRows))
     })
@@ -180,3 +181,13 @@ module.exports = {
   updateById,
   changePassword
 }
+
+let u = {
+  name: 'demo101'
+}
+
+insertOne(u).then(data => {
+  console.log(data)
+})
+
+// console.log('sasa')
